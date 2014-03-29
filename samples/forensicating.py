@@ -102,6 +102,8 @@ def users_paths(soft_reg, sid_list):
         for v in k.values():
             if v.name() == "ProfileImagePath":
                 users_paths_list.append(v.value())
+                print("[-] User Dir...........: %s" % users_paths_list.append(v.value()))
+
 
     return users_paths_list   
 
@@ -273,17 +275,13 @@ def network_settings(sys_reg, soft_reg):
         if not 'DhcpSubnetMask' in results_dict: 
             results_dict['DhcpSubnetMask'] = "N/A"        
 
-        print("[-] Domain...........: %s" % results_dict['Domain'])
-        print("[-] IP Address.......: %s" % results_dict['IPAddress'])
-        print("[-] DHCP IP..........: %s" % results_dict['DhcpIPAddress'])
-        print("[-] DHCP Server......: %s" % results_dict['DhcpServer'])
-        print("[-] DHCP Subnet......: %s" % results_dict['DhcpSubnetMask'])
-        print("\n"                                      )
-
-def users_info(soft_reg):
-    """
-    Populating all of the user accounts
-    ref: http://support.microsoft.com/kb/154599
+        
+    import sys
+    sys_reg = sys.argv[1]
+    soft_reg = sys.argv[2]
+    print("[+] SYSTEM hive:   %s" % sys_reg)
+    print("[+] SOFTWARE hive: %s" % soft_reg)
+    print("[+] The system's Control Set is 
     """     
     results = []
     results_dict = {}
@@ -303,17 +301,21 @@ def users_info(soft_reg):
 if __name__ == "__main__":
     """
     Print out all of the information
-    """            
-    import sys
-    sys_reg = sys.argv[1]
-    soft_reg = sys.argv[2]
-    print("[+] SYSTEM hive:   %s" % sys_reg)
-    print("[+] SOFTWARE hive: %s" % soft_reg)
-    print("[+] The system's Control Set is :",control_set_check(sys_reg))
+    """            :",control_set_check(sys_reg))
     print("[+] The system's Architecture is:",arch_check(sys_reg))
     tz_settings(sys_reg)
     env_settings(sys_reg)
-    os_settings(sys_reg, soft_reg)
+    os_settings(sys_reg, soft_reg)print("[-] Domain...........: %s" % results_dict['Domain'])
+        print("[-] IP Address.......: %s" % results_dict['IPAddress'])
+        print("[-] DHCP IP..........: %s" % results_dict['DhcpIPAddress'])
+        print("[-] DHCP Server......: %s" % results_dict['DhcpServer'])
+        print("[-] DHCP Subnet......: %s" % results_dict['DhcpSubnetMask'])
+        print("\n"                                      )
+
+def users_info(soft_reg):
+    """
+    Populating all of the user accounts
+    ref: http://support.microsoft.com/kb/154599
     network_settings(sys_reg, soft_reg)
     users_info(soft_reg)
     user_reg_locs(users_paths(soft_reg, users_sids(soft_reg)))
